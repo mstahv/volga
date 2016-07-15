@@ -1,5 +1,6 @@
 package org.vaadin.mavenproject1;
 
+import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.navigator.Navigator;
@@ -7,7 +8,6 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.ui.JavaScript;
 import com.vaadin.ui.Link;
 import com.vaadin.ui.UI;
 import org.vaadin.viritin.label.Header;
@@ -26,6 +26,7 @@ import org.vaadin.viritin.layouts.MVerticalLayout;
  */
 @Theme("valo")
 @Title("SEO test: basic title")
+@JavaScript("seo.js")
 public class MyUI extends UI {
 
     private Navigator navigator;
@@ -35,48 +36,6 @@ public class MyUI extends UI {
 
         MVerticalLayout layout = new MVerticalLayout(new Header("Test apps for something related to SEO"));
         navigator = new Navigator(this, layout);
-
-        JavaScript.eval("var head = document.getElementsByTagName(\"head\")[0];\n"
-                + // Twitter CANNOT parse dynamically added meta tags :-(
-                "var el = document.createElement(\"meta\");\n"
-                + "el.name = \"twitter:description\";\n"
-                + "el.content = \"This is test description\";\n"
-                + "head.appendChild(el);\n"
-                + "\n"
-                + "el = document.createElement(\"meta\");\n"
-                + "el.name = \"twitter:card\";\n"
-                + "el.content = \"summary\";\n"
-                + "head.appendChild(el);\n"
-                + "\n"
-                + "el = document.createElement(\"meta\");\n"
-                + "el.name = \"twitter:site\";\n"
-                + "el.content = \"@nicolas_frankel\";\n"
-                + "head.appendChild(el);\n"
-                + "\n"
-                + "el = document.createElement(\"meta\");\n"
-                + "el.name = \"twitter:title\";\n"
-                + "el.content = \"A Java geek\";\n"
-                + "head.appendChild(el);\n"
-                + "\n"
-                + "el = document.createElement(\"meta\");\n"
-                + "el.name = \"twitter:image\";\n"
-                + "el.content = \"http://v4.tahvonen.fi/boat.png\";\n"
-                + "head.appendChild(el);"
-                + "el = document.createElement(\"meta\");\n"
-                + // Facebook CAN parse dynamically added stuff
-                "el.name = \"og:image\";\n"
-                + "el.content = \"http://v4.tahvonen.fi/boat.png\";\n"
-                + "head.appendChild(el);\n"
-                + "\n"
-                + "el = document.createElement(\"meta\");\n"
-                + "el.name = \"og:url\";\n"
-                + "el.content = \"http://v4.tahvonen.fi/seo-test/\";\n"
-                + "head.appendChild(el);\n"
-                + "\n"
-                + "el = document.createElement(\"meta\");\n"
-                + "el.name = \"og:title\";\n"
-                + "el.content = \"Vaadin OG test\";\n"
-                + "head.appendChild(el);");
 
         MVerticalLayout main = new MVerticalLayout(new Menu(), layout);
         setContent(main);
