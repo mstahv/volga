@@ -1,4 +1,4 @@
-package org.vaadin.mavenproject1;
+package org.vaadin.seo;
 
 import com.github.wolfie.history.HistoryExtension;
 import com.vaadin.annotations.JavaScript;
@@ -30,7 +30,7 @@ import java.util.Map;
 @Theme("valo")
 @Title("SEO test: basic title")
 @JavaScript("seo.js")
-public class MyUI extends UI implements ViewDisplay {
+public class SeoUI extends UI implements ViewDisplay {
 
     private static final Map<Class<? extends View>, String> VIEW_CLASSES_TO_ID = new HashMap<>();
 

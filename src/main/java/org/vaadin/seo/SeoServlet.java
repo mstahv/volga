@@ -1,4 +1,4 @@
-package org.vaadin.mavenproject1;
+package org.vaadin.seo;
 
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.*;
@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
 @WebServlet(urlPatterns = "/*", name = "SeoServlet", asyncSupported = true)
-@VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
+@VaadinServletConfiguration(ui = SeoUI.class, productionMode = false)
 public class SeoServlet extends VaadinServlet {
 
     @Override
