@@ -59,9 +59,7 @@ public class MyUI extends UI {
     public  static class MainView extends MVerticalLayout implements View {
 
         @Override
-        public void enter(ViewChangeListener.ViewChangeEvent event) {
-
-        }
+        public void enter(ViewChangeListener.ViewChangeEvent event) { }
 
         public MainView() {
             add(new RichText().withMarkDown("# Main View"));
@@ -72,9 +70,7 @@ public class MyUI extends UI {
     public static class SecondView extends MVerticalLayout implements View {
 
         @Override
-        public void enter(ViewChangeListener.ViewChangeEvent event) {
-
-        }
+        public void enter(ViewChangeListener.ViewChangeEvent event) { }
 
         public SecondView() {
 
