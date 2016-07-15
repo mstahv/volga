@@ -44,12 +44,19 @@ public class MyUI extends UI implements ViewDisplay {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 
+        setupNavigation();
+        layout();
+    }
+
+    private void setupNavigation() {
         HistoryExtension history = new HistoryExtension();
         history.extend(this);
         String  contextPath = VaadinServlet.getCurrent().getServletContext().getContextPath();
         NavigationStateManager pushStateManager = history.createNavigationStateManager(contextPath);
         navigator = new Navigator(this, pushStateManager, this);
+    }
 
+    private void layout() {
         MVerticalLayout layout = new MVerticalLayout(new Header("Test apps for something related to SEO"));
         MVerticalLayout main = new MVerticalLayout(new Menu(), layout);
         setContent(main);
