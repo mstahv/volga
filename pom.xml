@@ -88,7 +88,6 @@
             <groupId>org.vaadin</groupId>
             <artifactId>viritin</artifactId>
             <version>1.53</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
 
