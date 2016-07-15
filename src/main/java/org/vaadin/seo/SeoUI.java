@@ -8,6 +8,7 @@ import com.vaadin.navigator.*;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Link;
 import com.vaadin.ui.UI;
 import org.vaadin.viritin.label.Header;
@@ -34,6 +35,8 @@ public class SeoUI extends UI implements ViewDisplay {
 
     private static final Map<Class<? extends View>, String> VIEW_CLASSES_TO_ID = new HashMap<>();
 
+    MVerticalLayout layout = new MVerticalLayout();
+
     static {
         VIEW_CLASSES_TO_ID.put(MainView.class, "");
         VIEW_CLASSES_TO_ID.put(SecondView.class, "/second");
@@ -51,20 +54,20 @@ public class SeoUI extends UI implements ViewDisplay {
     private void setupNavigation() {
         HistoryExtension history = new HistoryExtension();
         history.extend(this);
-        String  contextPath = VaadinServlet.getCurrent().getServletContext().getContextPath();
+        String contextPath = VaadinServlet.getCurrent().getServletContext().getContextPath();
         NavigationStateManager pushStateManager = history.createNavigationStateManager(contextPath);
         navigator = new Navigator(this, pushStateManager, this);
     }
 
     private void layout() {
-        MVerticalLayout layout = new MVerticalLayout(new Header("Test apps for something related to SEO"));
         MVerticalLayout main = new MVerticalLayout(new Menu(), layout);
         setContent(main);
     }
 
     @Override
     public void showView(View view) {
-        navigator.navigateTo(VIEW_CLASSES_TO_ID.get(view.getClass()));
+        layout.removeAllComponents();
+        layout.addComponent((Component) view);
     }
 
     class Menu extends MHorizontalLayout {
@@ -74,8 +77,8 @@ public class SeoUI extends UI implements ViewDisplay {
             addView("Second view", SecondView.class);
         }
 
-        private void addView(String name, Class<? extends View > clazz) {
-            String id = VIEW_CLASSES_TO_ID.get(MainView.class);
+        private void addView(String name, Class<? extends View> clazz) {
+            String id = VIEW_CLASSES_TO_ID.get(clazz);
             Link link = new Link(name, new ExternalResource(id));
             add(link);
             navigator.addView(id, clazz);
@@ -83,10 +86,11 @@ public class SeoUI extends UI implements ViewDisplay {
 
     }
 
-    public  static class MainView extends MVerticalLayout implements View {
+    public static class MainView extends MVerticalLayout implements View {
 
         @Override
-        public void enter(ViewChangeListener.ViewChangeEvent event) { }
+        public void enter(ViewChangeListener.ViewChangeEvent event) {
+        }
 
         public MainView() {
             add(new RichText().withMarkDown("# Main View"));
@@ -97,10 +101,10 @@ public class SeoUI extends UI implements ViewDisplay {
     public static class SecondView extends MVerticalLayout implements View {
 
         @Override
-        public void enter(ViewChangeListener.ViewChangeEvent event) { }
+        public void enter(ViewChangeListener.ViewChangeEvent event) {
+        }
 
         public SecondView() {
-
             add(new RichText().withMarkDown("# Second view \n \n This is a second view that Google Bot will hopefully index as well. We are using link with 'hashbang' style to let google bot figure out it crawl to this page. "));
         }
 
