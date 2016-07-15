@@ -28,12 +28,14 @@ import org.vaadin.viritin.layouts.MVerticalLayout;
 @Title("SEO test: basic title")
 public class MyUI extends UI {
 
-    final MVerticalLayout main = new MVerticalLayout();
-    final MVerticalLayout layout = new MVerticalLayout();
-    Navigator navigator = new Navigator(this, layout);
+    private Navigator navigator;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
+
+        MVerticalLayout main = new MVerticalLayout();
+        MVerticalLayout layout = new MVerticalLayout();
+        navigator = new Navigator(this, layout);
 
         main.add(new Menu());
         main.add(layout);
