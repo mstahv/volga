@@ -33,14 +33,8 @@ public class MyUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 
-        MVerticalLayout main = new MVerticalLayout();
-        MVerticalLayout layout = new MVerticalLayout();
+        MVerticalLayout layout = new MVerticalLayout(new Header("Test apps for something related to SEO"));
         navigator = new Navigator(this, layout);
-
-        main.add(new Menu());
-        main.add(layout);
-
-        layout.add(new Header("Test apps for something related to SEO"));
 
         JavaScript.eval("var head = document.getElementsByTagName(\"head\")[0];\n"
                 + // Twitter CANNOT parse dynamically added meta tags :-(
@@ -84,6 +78,7 @@ public class MyUI extends UI {
                 + "el.content = \"Vaadin OG test\";\n"
                 + "head.appendChild(el);");
 
+        MVerticalLayout main = new MVerticalLayout(new Menu(), layout);
         setContent(main);
     }
 
