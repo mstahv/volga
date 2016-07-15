@@ -1,13 +1,13 @@
 package org.vaadin.mavenproject1;
 
+import com.github.wolfie.history.HistoryExtension;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
-import com.vaadin.navigator.Navigator;
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.navigator.*;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Link;
 import com.vaadin.ui.UI;
 import org.vaadin.viritin.label.Header;
@@ -30,7 +30,8 @@ import java.util.Map;
 @Theme("valo")
 @Title("SEO test: basic title")
 @JavaScript("seo.js")
-public class MyUI extends UI {
+public class MyUI extends UI implements ViewDisplay {
+
     private static final Map<Class<? extends View>, String> VIEW_CLASSES_TO_ID = new HashMap<>();
 
     static {
@@ -43,11 +44,20 @@ public class MyUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 
-        MVerticalLayout layout = new MVerticalLayout(new Header("Test apps for something related to SEO"));
-        navigator = new Navigator(this, layout);
+        HistoryExtension history = new HistoryExtension();
+        history.extend(this);
+        String  contextPath = VaadinServlet.getCurrent().getServletContext().getContextPath();
+        NavigationStateManager pushStateManager = history.createNavigationStateManager(contextPath);
+        navigator = new Navigator(this, pushStateManager, this);
 
+        MVerticalLayout layout = new MVerticalLayout(new Header("Test apps for something related to SEO"));
         MVerticalLayout main = new MVerticalLayout(new Menu(), layout);
         setContent(main);
+    }
+
+    @Override
+    public void showView(View view) {
+        navigator.navigateTo(VIEW_CLASSES_TO_ID.get(view.getClass()));
     }
 
     class Menu extends MHorizontalLayout {

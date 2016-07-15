@@ -89,6 +89,11 @@
             <artifactId>viritin</artifactId>
             <version>1.53</version>
         </dependency>
+        <dependency>
+            <groupId>org.vaadin.addons</groupId>
+            <artifactId>history</artifactId>
+            <version>1.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
