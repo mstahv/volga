@@ -3,7 +3,7 @@ var head = document.getElementsByTagName("head")[0];
 
 var el = document.createElement("meta");
 el.name = "twitter:description";
-el.content = "This is test description";
+el.content = "Throug Javascript: This is test description";
 head.appendChild(el);
 
 el = document.createElement("meta");
@@ -18,7 +18,7 @@ head.appendChild(el);
 
 el = document.createElement("meta");
 el.name = "twitter:title";
-el.content = "A Java geek";
+el.content = "Throug Javascript: A Java geek";
 head.appendChild(el);
 
 el = document.createElement("meta");
@@ -39,5 +39,5 @@ head.appendChild(el);
 
 el = document.createElement("meta");
 el.name = "og:title";
-el.content = "Vaadin OG test";
+el.content = "Throug Javascript: Vaadin OG test";
 head.appendChild(el);
