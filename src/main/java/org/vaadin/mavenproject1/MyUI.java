@@ -1,27 +1,15 @@
 package org.vaadin.mavenproject1;
 
-import javax.servlet.annotation.WebServlet;
-
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
-import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.BootstrapFragmentResponse;
-import com.vaadin.server.BootstrapListener;
-import com.vaadin.server.BootstrapPageResponse;
 import com.vaadin.server.ExternalResource;
-import com.vaadin.server.ServiceException;
-import com.vaadin.server.SessionInitEvent;
-import com.vaadin.server.SessionInitListener;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.JavaScript;
 import com.vaadin.ui.Link;
 import com.vaadin.ui.UI;
-import javax.servlet.ServletException;
-import org.jsoup.nodes.Element;
 import org.vaadin.viritin.label.Header;
 import org.vaadin.viritin.label.RichText;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
@@ -46,7 +34,7 @@ public class MyUI extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        
+
         main.add(new Menu());
         main.add(layout);
 
@@ -95,51 +83,6 @@ public class MyUI extends UI {
                 + "head.appendChild(el);");
 
         setContent(main);
-    }
-
-    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
-    public static class MyUIServlet extends VaadinServlet {
-
-        @Override
-        protected void servletInitialized() throws ServletException {
-            getService().addSessionInitListener(new SessionInitListener() {
-                @Override
-                public void sessionInit(SessionInitEvent event) throws ServiceException {
-                    event.getSession().addBootstrapListener(new BootstrapListener() {
-                        @Override
-                        public void modifyBootstrapFragment(BootstrapFragmentResponse response) {
-
-                        }
-
-                        @Override
-                        public void modifyBootstrapPage(BootstrapPageResponse response) {
-
-                            Element html = response.getDocument().getElementsByTag("html").get(0);
-                            html.attr("prefix", "og: http://ogp.me/ns# article: http://ogp.me/ns/article#");
-
-                            Element head = response.getDocument().getElementsByTag("head").get(0);
-
-                            // This works for Twittter
-                            meta(response, head, "twitter:card", "summary");
-                            meta(response, head, "twitter:site", "@MattiTahvonen");
-                            meta(response, head, "twitter:title", "Vaadin SEO examle");
-                            meta(response, head, "twitter:image", "http://v4.tahvonen.fi/boat.png");
-
-                            meta(response, head, "og:title", "This is OG title for this page");
-
-                        }
-
-                        private void meta(BootstrapPageResponse response, Element head, String name, String content) {
-                            Element t = response.getDocument().createElement("meta");
-                            t.attr("name", name);
-                            t.attr("content", content);
-                            head.appendChild(t);
-                        }
-                    });
-                }
-            });
-        }
     }
 
     class Menu extends MHorizontalLayout {
