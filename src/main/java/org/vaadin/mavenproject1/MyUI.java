@@ -15,6 +15,9 @@ import org.vaadin.viritin.label.RichText;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This UI is the application entry point. A UI may either represent a browser
  * window (or tab) or some part of a html page where a Vaadin application is
@@ -28,6 +31,12 @@ import org.vaadin.viritin.layouts.MVerticalLayout;
 @Title("SEO test: basic title")
 @JavaScript("seo.js")
 public class MyUI extends UI {
+    private static final Map<Class<? extends View>, String> VIEW_CLASSES_TO_ID = new HashMap<>();
+
+    static {
+        VIEW_CLASSES_TO_ID.put(MainView.class, "");
+        VIEW_CLASSES_TO_ID.put(SecondView.class, "/second");
+    }
 
     private Navigator navigator;
 
@@ -44,12 +53,13 @@ public class MyUI extends UI {
     class Menu extends MHorizontalLayout {
 
         public Menu() {
-            addView("Main view", "", MainView.class);
-            addView("Second view", "second", SecondView.class);
+            addView("Main view", MainView.class);
+            addView("Second view", SecondView.class);
         }
 
-        private void addView(String name, String id, Class clazz) {
-            Link link = new Link(name, new ExternalResource("#!" + id));
+        private void addView(String name, Class<? extends View > clazz) {
+            String id = VIEW_CLASSES_TO_ID.get(MainView.class);
+            Link link = new Link(name, new ExternalResource(id));
             add(link);
             navigator.addView(id, clazz);
         }
