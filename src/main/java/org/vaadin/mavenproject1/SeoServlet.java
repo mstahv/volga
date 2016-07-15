@@ -30,10 +30,10 @@ public class SeoServlet extends VaadinServlet {
                 // This works for Twittter
                 meta(response, head, "twitter:card", "summary");
                 meta(response, head, "twitter:site", "@MattiTahvonen");
-                meta(response, head, "twitter:title", "Through Servlet: Vaadin SEO examle");
+                meta(response, head, "twitter:title", "Through Servlet - Vaadin SEO examle");
                 meta(response, head, "twitter:image", "http://v4.tahvonen.fi/boat.png");
 
-                meta(response, head, "og:title", "Through Servlet: This is OG title for this page");
+                meta(response, head, "og:title", "Through Servlet - This is OG title for this page");
 
             }
 
