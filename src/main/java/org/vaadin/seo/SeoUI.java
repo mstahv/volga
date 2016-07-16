@@ -1,5 +1,6 @@
 package org.vaadin.seo;
 
+import com.github.wolfie.history.PushStateLink;
 import com.github.wolfie.history.HistoryExtension;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
@@ -33,19 +34,21 @@ import java.util.Map;
 @JavaScript("seo.js")
 public class SeoUI extends UI implements ViewDisplay {
 
-    private static final Map<Class<? extends View>, String> VIEW_CLASSES_TO_ID = new HashMap<>();
+    private final Map<Class<? extends View>, String> VIEW_CLASSES_TO_ID = new HashMap<>();
+
+    private String contextPath;
 
     MVerticalLayout layout = new MVerticalLayout();
-
-    static {
-        VIEW_CLASSES_TO_ID.put(MainView.class, "");
-        VIEW_CLASSES_TO_ID.put(SecondView.class, "/second");
-    }
 
     private Navigator navigator;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
+        contextPath = VaadinServlet.getCurrent().getServletContext()
+                .getContextPath();
+        
+        VIEW_CLASSES_TO_ID.put(MainView.class, "");
+        VIEW_CLASSES_TO_ID.put(SecondView.class, "second");
 
         setupNavigation();
         layout();
@@ -54,7 +57,6 @@ public class SeoUI extends UI implements ViewDisplay {
     private void setupNavigation() {
         HistoryExtension history = new HistoryExtension();
         history.extend(this);
-        String contextPath = VaadinServlet.getCurrent().getServletContext().getContextPath();
         NavigationStateManager pushStateManager = history.createNavigationStateManager(contextPath);
         navigator = new Navigator(this, pushStateManager, this);
     }
@@ -79,7 +81,7 @@ public class SeoUI extends UI implements ViewDisplay {
 
         private void addView(String name, Class<? extends View> clazz) {
             String id = VIEW_CLASSES_TO_ID.get(clazz);
-            Link link = new Link(name, new ExternalResource(id));
+            PushStateLink link = new PushStateLink(name, id);
             add(link);
             navigator.addView(id, clazz);
         }
