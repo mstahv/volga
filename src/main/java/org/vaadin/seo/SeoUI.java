@@ -36,17 +36,12 @@ public class SeoUI extends UI implements ViewDisplay {
 
     private final Map<Class<? extends View>, String> VIEW_CLASSES_TO_ID = new HashMap<>();
 
-    private String contextPath;
-
     MVerticalLayout layout = new MVerticalLayout();
 
     private Navigator navigator;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        contextPath = VaadinServlet.getCurrent().getServletContext()
-                .getContextPath();
-        
         VIEW_CLASSES_TO_ID.put(MainView.class, "");
         VIEW_CLASSES_TO_ID.put(SecondView.class, "second");
 
@@ -55,10 +50,7 @@ public class SeoUI extends UI implements ViewDisplay {
     }
 
     private void setupNavigation() {
-        HistoryExtension history = new HistoryExtension();
-        history.extend(this);
-        NavigationStateManager pushStateManager = history.createNavigationStateManager(contextPath);
-        navigator = new Navigator(this, pushStateManager, this);
+        navigator = HistoryExtension.createNavigationStateManager(this, this);
     }
 
     private void layout() {
