@@ -21,8 +21,8 @@ public class SeoServlet extends VaadinServlet {
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);
         Map<Class<? extends View>, String> viewClassesToId = new HashMap<>();
-        viewClassesToId.put(SeoUI.MainView.class, "");
-        viewClassesToId.put(SeoUI.SecondView.class, "second");
+        viewClassesToId.put(MainView.class, "");
+        viewClassesToId.put(SecondView.class, "second");
         getServletContext().setAttribute("viewClassesToId", viewClassesToId);
     }
 

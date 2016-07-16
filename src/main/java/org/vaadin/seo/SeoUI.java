@@ -2,18 +2,15 @@ package org.vaadin.seo;
 
 import com.github.wolfie.history.HistoryExtension;
 import com.github.wolfie.history.PushStateLink;
-import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.navigator.ViewDisplay;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
-import org.vaadin.viritin.label.RichText;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
@@ -75,29 +72,4 @@ public class SeoUI extends UI implements ViewDisplay {
         }
 
     }
-
-    public static class MainView extends MVerticalLayout implements View {
-
-        @Override
-        public void enter(ViewChangeListener.ViewChangeEvent event) {
-        }
-
-        public MainView() {
-            add(new RichText().withMarkDown("# Main View"));
-        }
-
-    }
-
-    public static class SecondView extends MVerticalLayout implements View {
-
-        @Override
-        public void enter(ViewChangeListener.ViewChangeEvent event) {
-        }
-
-        public SecondView() {
-            add(new RichText().withMarkDown("# Second view \n \n This is a second view that Google Bot will hopefully index as well. We are using link with 'hashbang' style to let google bot figure out it crawl to this page. "));
-        }
-
-    }
-
 }
