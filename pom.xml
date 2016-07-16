@@ -169,6 +169,9 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty.plugin.version}</version>
                 <configuration>
+                    <webApp>
+                        <contextPath>/seo-test</contextPath>
+                    </webApp>
                     <scanIntervalSeconds>2</scanIntervalSeconds>
                 </configuration>
             </plugin>
