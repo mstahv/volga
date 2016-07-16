@@ -1,23 +1,23 @@
 package org.vaadin.seo;
 
-import com.github.wolfie.history.PushStateLink;
 import com.github.wolfie.history.HistoryExtension;
+import com.github.wolfie.history.PushStateLink;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
-import com.vaadin.navigator.*;
-import com.vaadin.server.ExternalResource;
+import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.navigator.ViewDisplay;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Link;
 import com.vaadin.ui.UI;
-import org.vaadin.viritin.label.Header;
 import org.vaadin.viritin.label.RichText;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
-import java.util.HashMap;
+import javax.servlet.ServletContext;
 import java.util.Map;
 
 /**
@@ -31,20 +31,14 @@ import java.util.Map;
  */
 @Theme("valo")
 @Title("SEO test: basic title")
-@JavaScript("seo.js")
 public class SeoUI extends UI implements ViewDisplay {
 
-    private final Map<Class<? extends View>, String> VIEW_CLASSES_TO_ID = new HashMap<>();
-
-    MVerticalLayout layout = new MVerticalLayout();
+    private MVerticalLayout layout = new MVerticalLayout();
 
     private Navigator navigator;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        VIEW_CLASSES_TO_ID.put(MainView.class, "");
-        VIEW_CLASSES_TO_ID.put(SecondView.class, "second");
-
         setupNavigation();
         layout();
     }
@@ -72,7 +66,9 @@ public class SeoUI extends UI implements ViewDisplay {
         }
 
         private void addView(String name, Class<? extends View> clazz) {
-            String id = VIEW_CLASSES_TO_ID.get(clazz);
+            ServletContext context = VaadinServlet.getCurrent().getServletContext();
+            Map<Class<? extends View>, String> viewClassesToId = (Map<Class<? extends View>, String>) context.getAttribute("viewClassesToId");
+            String id = viewClassesToId.get(clazz);
             PushStateLink link = new PushStateLink(name, id);
             add(link);
             navigator.addView(id, clazz);
