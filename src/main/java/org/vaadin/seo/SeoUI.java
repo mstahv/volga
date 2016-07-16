@@ -11,11 +11,14 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
+import org.apache.commons.collections.BidiMap;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
 import javax.servlet.ServletContext;
 import java.util.Map;
+
+import static org.vaadin.seo.SeoServlet.CLASSES_MAPPINGS_KEY;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
@@ -64,12 +67,11 @@ public class SeoUI extends UI implements ViewDisplay {
 
         private void addView(String name, Class<? extends View> clazz) {
             ServletContext context = VaadinServlet.getCurrent().getServletContext();
-            Map<Class<? extends View>, String> viewClassesToId = (Map<Class<? extends View>, String>) context.getAttribute("viewClassesToId");
-            String id = viewClassesToId.get(clazz);
+            BidiMap classesMappings = (BidiMap) context.getAttribute(CLASSES_MAPPINGS_KEY);
+            String id = (String) classesMappings.get(clazz);
             PushStateLink link = new PushStateLink(name, id);
             add(link);
             navigator.addView(id, clazz);
         }
-
     }
 }
