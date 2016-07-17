@@ -1,4 +1,4 @@
-package org.vaadin.seo;
+package org.vaadin.volga;
 
 import com.github.wolfie.history.HistoryExtension;
 import com.github.wolfie.history.PushStateLink;
@@ -12,13 +12,13 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
 import org.apache.commons.collections.BidiMap;
+import org.apache.commons.collections.MapIterator;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
 import javax.servlet.ServletContext;
-import java.util.Map;
 
-import static org.vaadin.seo.SeoServlet.CLASSES_MAPPINGS_KEY;
+import static org.vaadin.volga.SeoServlet.VIEWS_MAPPINGS_KEY;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
@@ -67,8 +67,14 @@ public class SeoUI extends UI implements ViewDisplay {
 
         private void addView(String name, Class<? extends View> clazz) {
             ServletContext context = VaadinServlet.getCurrent().getServletContext();
-            BidiMap classesMappings = (BidiMap) context.getAttribute(CLASSES_MAPPINGS_KEY);
-            String id = (String) classesMappings.get(clazz);
+            BidiMap viewMappings = (BidiMap) context.getAttribute(VIEWS_MAPPINGS_KEY);
+            MapIterator iterator = viewMappings.mapIterator();
+            String id = null;
+            for(Object key =  iterator.next(); iterator.hasNext();) {
+                if (key.getClass() == clazz) {
+                    id = (String) viewMappings.get(key);
+                }
+            }
             PushStateLink link = new PushStateLink(name, id);
             add(link);
             navigator.addView(id, clazz);

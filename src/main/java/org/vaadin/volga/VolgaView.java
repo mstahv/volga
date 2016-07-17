@@ -1,8 +1,8 @@
-package org.vaadin.seo;
+package org.vaadin.volga;
 
 import com.vaadin.navigator.View;
 
-public interface SeoView extends View {
+public interface VolgaView extends View {
 
     String getSeoTitle();
     String getSeoImage();

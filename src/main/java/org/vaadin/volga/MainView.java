@@ -1,4 +1,4 @@
-package org.vaadin.seo;
+package org.vaadin.volga;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
