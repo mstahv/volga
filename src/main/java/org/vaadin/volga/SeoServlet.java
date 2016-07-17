@@ -2,8 +2,6 @@ package org.vaadin.volga;
 
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.*;
-import org.apache.commons.collections.BidiMap;
-import org.apache.commons.collections.bidimap.DualHashBidiMap;
 import org.jsoup.nodes.Element;
 
 import javax.servlet.ServletConfig;
@@ -15,15 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 @VaadinServletConfiguration(ui = SeoUI.class, productionMode = false)
 public class SeoServlet extends VaadinServlet {
 
-    static final String VIEWS_MAPPINGS_KEY = "SeoServlet.classesMappings";
-
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);
-        BidiMap classesMappings = new DualHashBidiMap();
-        classesMappings.put(new MainView(), "");
-        classesMappings.put(new SecondView(), "second");
-        getServletContext().setAttribute(VIEWS_MAPPINGS_KEY, classesMappings);
+        Volga volga = Volga.getCurrent(servletConfig.getServletContext());
+        volga.addViewByPath(new MainView(), "");
+        volga.addViewByPath(new SecondView(), "second");
     }
 
     @Override
@@ -64,10 +59,7 @@ public class SeoServlet extends VaadinServlet {
         private VolgaView getCurrentView(BootstrapPageResponse response) {
             HttpServletRequest request = (HttpServletRequest) response.getRequest();
             String path = request.getPathInfo();
-            String strippedPath = path.replaceFirst("/", "");
-
-            BidiMap viewsMappings = (BidiMap) request.getServletContext().getAttribute(VIEWS_MAPPINGS_KEY);
-            return (VolgaView) viewsMappings.inverseBidiMap().getOrDefault(strippedPath, new MainView());
+            return Volga.getCurrent(request.getServletContext()).getViewByPath(path).get();
         }
 
         private void meta(BootstrapPageResponse response, String name, String content) {

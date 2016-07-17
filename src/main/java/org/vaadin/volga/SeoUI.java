@@ -11,14 +11,8 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
-import org.apache.commons.collections.BidiMap;
-import org.apache.commons.collections.MapIterator;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
-
-import javax.servlet.ServletContext;
-
-import static org.vaadin.volga.SeoServlet.VIEWS_MAPPINGS_KEY;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
@@ -61,23 +55,15 @@ public class SeoUI extends UI implements ViewDisplay {
     class Menu extends MHorizontalLayout {
 
         public Menu() {
-            addView("Main view", MainView.class);
-            addView("Second view", SecondView.class);
+            addView("Main view", "");
+            addView("Second view", "second");
         }
 
-        private void addView(String name, Class<? extends View> clazz) {
-            ServletContext context = VaadinServlet.getCurrent().getServletContext();
-            BidiMap viewMappings = (BidiMap) context.getAttribute(VIEWS_MAPPINGS_KEY);
-            MapIterator iterator = viewMappings.mapIterator();
-            String id = null;
-            for(Object key =  iterator.next(); iterator.hasNext();) {
-                if (key.getClass() == clazz) {
-                    id = (String) viewMappings.get(key);
-                }
-            }
-            PushStateLink link = new PushStateLink(name, id);
+        private void addView(String name, String path) {
+            PushStateLink link = new PushStateLink(name, path);
             add(link);
-            navigator.addView(id, clazz);
+            Volga volga = Volga.getCurrent(VaadinServlet.getCurrent().getServletContext());
+            navigator.addView(path, volga.getViewByPath(path).get());
         }
     }
 }

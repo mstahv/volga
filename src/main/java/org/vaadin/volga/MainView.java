@@ -1,11 +1,10 @@
 package org.vaadin.volga;
 
-import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import org.vaadin.viritin.label.RichText;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
-public class MainView extends MVerticalLayout implements View {
+public class MainView extends MVerticalLayout implements VolgaView {
 
     public MainView() {
         add(new RichText().withMarkDown("# Main View"));
@@ -13,4 +12,19 @@ public class MainView extends MVerticalLayout implements View {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {  }
+
+    @Override
+    public String getSeoTitle() {
+        return "SEO Title: " + getClass().getSimpleName();
+    }
+
+    @Override
+    public String getSeoImage() {
+        return "http://v4.tahvonen.fi/boat.png";
+    }
+
+    @Override
+    public String getSeoDescription() {
+        return "SEO Description: " + getClass().getSimpleName();
+    }
 }
