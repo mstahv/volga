@@ -19,7 +19,7 @@ public class Volga {
         return volga;
     }
 
-    public void addViewByPath(VolgaView view, String path) {
+    void addViewByPath(VolgaView view, String path) {
         if (view == null) {
             throw new NullPointerException("view cannot be null");
         }

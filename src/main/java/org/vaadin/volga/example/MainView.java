@@ -1,8 +1,9 @@
-package org.vaadin.volga;
+package org.vaadin.volga.example;
 
 import com.vaadin.navigator.ViewChangeListener;
 import org.vaadin.viritin.label.RichText;
 import org.vaadin.viritin.layouts.MVerticalLayout;
+import org.vaadin.volga.VolgaView;
 
 public class MainView extends MVerticalLayout implements VolgaView {
 

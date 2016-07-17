@@ -1,4 +1,4 @@
-package org.vaadin.volga;
+package org.vaadin.volga.example;
 
 import com.github.wolfie.history.HistoryExtension;
 import com.github.wolfie.history.PushStateLink;
@@ -13,6 +13,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
+import org.vaadin.volga.Volga;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser

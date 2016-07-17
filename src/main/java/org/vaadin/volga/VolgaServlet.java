@@ -1,25 +1,23 @@
 package org.vaadin.volga;
 
-import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.*;
 import org.jsoup.nodes.Element;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
-@WebServlet(urlPatterns = "/*", name = "SeoServlet", asyncSupported = true)
-@VaadinServletConfiguration(ui = SeoUI.class, productionMode = false)
-public class SeoServlet extends VaadinServlet {
+public abstract class VolgaServlet extends VaadinServlet {
 
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);
         Volga volga = Volga.getCurrent(servletConfig.getServletContext());
-        volga.addViewByPath(new MainView(), "");
-        volga.addViewByPath(new SecondView(), "second");
+        getViewMappings().entrySet().stream().forEach(e -> volga.addViewByPath(e.getKey(), e.getValue()));
     }
+
+    protected abstract Map<VolgaView, String> getViewMappings();
 
     @Override
     protected void servletInitialized() throws ServletException {
