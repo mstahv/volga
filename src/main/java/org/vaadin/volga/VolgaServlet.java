@@ -22,6 +22,10 @@ public abstract class VolgaServlet extends VaadinServlet {
     @Override
     protected void servletInitialized() throws ServletException {
 
-        getService().addSessionInitListener((SessionInitListener) event -> event.getSession().addBootstrapListener(DEFAULT_LISTENER));
+        getService().addSessionInitListener((SessionInitListener) event -> event.getSession().addBootstrapListener(getSeoBootstrapListener()));
+    }
+
+    protected SeoBootstrapListener getSeoBootstrapListener() {
+        return DEFAULT_LISTENER;
     }
 }
