@@ -92,7 +92,7 @@
         <dependency>
             <groupId>org.vaadin.addons</groupId>
             <artifactId>history</artifactId>
-            <version>1.2.0-SNAPSHOT</version>
+            <version>1.2.0-mattipre1</version>
         </dependency>
     </dependencies>
 
@@ -185,11 +185,15 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-			
+
             <repositories>
                 <repository>
                     <id>vaadin-prereleases</id>
                     <url>http://maven.vaadin.com/vaadin-prereleases</url>
+                </repository>
+                <repository>
+                    <id>viritin</id>
+                    <url>http://virit.in/maven2</url>
                 </repository>
             </repositories>
             <pluginRepositories>
