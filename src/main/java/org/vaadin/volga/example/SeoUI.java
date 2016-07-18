@@ -4,12 +4,8 @@ import com.github.wolfie.history.HistoryExtension;
 import com.github.wolfie.history.PushStateLink;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
-import com.vaadin.navigator.Navigator;
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewDisplay;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
@@ -26,11 +22,9 @@ import org.vaadin.volga.Volga;
  */
 @Theme("valo")
 @Title("SEO test: basic title")
-public class SeoUI extends UI implements ViewDisplay {
+public class SeoUI extends UI {
 
     private MVerticalLayout layout = new MVerticalLayout();
-
-    private Navigator navigator;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -39,18 +33,12 @@ public class SeoUI extends UI implements ViewDisplay {
     }
 
     private void setupNavigation() {
-        navigator = HistoryExtension.createNavigationStateManager(this, this);
+        HistoryExtension.configurePushStateEnabledNavigator(this, layout);
     }
 
     private void layout() {
         MVerticalLayout main = new MVerticalLayout(new Menu(), layout);
         setContent(main);
-    }
-
-    @Override
-    public void showView(View view) {
-        layout.removeAllComponents();
-        layout.addComponent((Component) view);
     }
 
     class Menu extends MHorizontalLayout {
@@ -64,7 +52,7 @@ public class SeoUI extends UI implements ViewDisplay {
             PushStateLink link = new PushStateLink(name, path);
             add(link);
             Volga volga = Volga.getCurrent(VaadinServlet.getCurrent().getServletContext());
-            navigator.addView(path, volga.getViewByPath(path).get());
+            getNavigator().addView(path, volga.getViewByPath(path).get());
         }
     }
 }
