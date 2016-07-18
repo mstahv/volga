@@ -1,18 +1,22 @@
 package org.vaadin.volga.example;
 
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.ui.Label;
 import org.vaadin.viritin.label.RichText;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 import org.vaadin.volga.VolgaView;
 
 public class SecondView extends MVerticalLayout implements VolgaView {
+    
+    Label pathParam = new Label();
 
     public SecondView() {
-        add(new RichText().withMarkDown("# Second view \n \n This is a second view that Google Bot will hopefully index as well. We are using link with 'hashbang' style to let google bot figure out it crawl to this page. "));
+        add(new RichText().withMarkDownResource("/secondview.md"), pathParam);
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
+        pathParam.setValue(event.getParameters());
     }
 
 
