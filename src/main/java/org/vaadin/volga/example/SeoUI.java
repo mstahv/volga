@@ -1,15 +1,15 @@
 package org.vaadin.volga.example;
 
-import com.github.wolfie.history.HistoryExtension;
 import com.github.wolfie.history.PushStateLink;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.UI;
+import com.vaadin.ui.ComponentContainer;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 import org.vaadin.volga.Volga;
+import org.vaadin.volga.VolgaUI;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
@@ -22,23 +22,19 @@ import org.vaadin.volga.Volga;
  */
 @Theme("valo")
 @Title("SEO test: basic title")
-public class SeoUI extends UI {
+public class SeoUI extends VolgaUI {
 
     private MVerticalLayout layout = new MVerticalLayout();
 
     @Override
-    protected void init(VaadinRequest vaadinRequest) {
-        setupNavigation();
-        layout();
-    }
-
-    private void setupNavigation() {
-        HistoryExtension.configurePushStateEnabledNavigator(this, layout);
-    }
-
-    private void layout() {
+    protected void doInit(VaadinRequest vaadinRequest) {
         MVerticalLayout main = new MVerticalLayout(new Menu(), layout);
         setContent(main);
+    }
+
+    @Override
+    protected ComponentContainer getContainer() {
+        return layout;
     }
 
     class Menu extends MHorizontalLayout {
