@@ -8,6 +8,7 @@ package org.vaadin.volga;
 import com.vaadin.server.BootstrapFragmentResponse;
 import com.vaadin.server.BootstrapListener;
 import com.vaadin.server.BootstrapPageResponse;
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import org.jsoup.nodes.Element;
 
@@ -23,8 +24,10 @@ public class SeoBootstrapListener implements BootstrapListener {
 
     @Override
     public void modifyBootstrapPage(BootstrapPageResponse response) {
-        VolgaView view = getCurrentView(response);
-        addHeaders(response, view);
+        Optional<VolgaView> currentView = getCurrentView(response);
+        if(currentView.isPresent()) {
+            addHeaders(response, currentView.get());
+        }
     }
 
     private void addHeaders(BootstrapPageResponse response, VolgaView view) {
@@ -42,10 +45,10 @@ public class SeoBootstrapListener implements BootstrapListener {
         meta(response, "og:image", view.getSeoImage());
     }
 
-    private VolgaView getCurrentView(BootstrapPageResponse response) {
+    private Optional<VolgaView> getCurrentView(BootstrapPageResponse response) {
         HttpServletRequest request = (HttpServletRequest) response.getRequest();
         String path = request.getPathInfo();
-        return Volga.getCurrent(request.getServletContext()).getViewByPath(path).get();
+        return Volga.getCurrent(request.getServletContext()).getViewByPath(path);
     }
 
     private void meta(BootstrapPageResponse response, String name, String content) {
