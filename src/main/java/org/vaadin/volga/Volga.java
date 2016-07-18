@@ -33,7 +33,13 @@ public class Volga {
         if (path == null) {
             throw new NullPointerException("path cannot be null");
         }
-        String strippedPath = path.replaceFirst("/", "");
+        if (path.startsWith("/")) {
+            path = path.replaceFirst("/", "");
+        }
+        if (path.contains("/")) {
+            path = path.substring(0, path.indexOf("/"));
+        }
+        String strippedPath = path;
         return mappings.entrySet().stream().filter(e -> strippedPath.equals(e.getKey())).map(Map.Entry::getValue).findAny();
     }
 }
