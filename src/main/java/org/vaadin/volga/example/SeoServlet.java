@@ -2,21 +2,29 @@ package org.vaadin.volga.example;
 
 import com.vaadin.annotations.VaadinServletConfiguration;
 import org.vaadin.volga.VolgaServlet;
-import org.vaadin.volga.VolgaView;
 
 import javax.servlet.annotation.WebServlet;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.ServletException;
+import org.vaadin.volga.VolgaDetailsImpl;
+import org.vaadin.volga.Volga;
+import org.vaadin.volga.VolgaDetails;
 
 @WebServlet(urlPatterns = "/*", name = "ExampleSEOServlet", asyncSupported = true)
 @VaadinServletConfiguration(ui = SeoUI.class, productionMode = false)
 public class SeoServlet extends VolgaServlet {
 
     @Override
-    protected Map<VolgaView, String> getViewMappings() {
-        Map<VolgaView, String> mappings = new HashMap<>();
-        mappings.put(new MainView(), "");
-        mappings.put(new SecondView(), "second");
+    protected void servletInitialized() throws ServletException {
+        super.servletInitialized(); //To change body of generated methods, choose Tools | Templates.
+        Volga.getCurrent(getServletContext()).setDefaultDetails(new VolgaDetailsImpl("Default SEO title", "http://v4.tahvonen.fi/boat.png", "This is the default SEO description that is used."));
+    }
+
+    @Override
+    protected Map<VolgaDetails, String> getViewMappings() {
+        Map<VolgaDetails, String> mappings = new HashMap<>();
+        mappings.put(new VolgaDetailsImpl("Seo title for second view", "http://v4.tahvonen.fi/boat.png", "This is the description for view with id second."), "second");
         return mappings;
     }
 }

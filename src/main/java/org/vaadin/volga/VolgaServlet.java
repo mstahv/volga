@@ -17,7 +17,7 @@ public abstract class VolgaServlet extends VaadinServlet {
         getViewMappings().entrySet().stream().forEach(e -> volga.addViewByPath(e.getKey(), e.getValue()));
     }
 
-    protected abstract Map<VolgaView, String> getViewMappings();
+    protected abstract Map<VolgaDetails, String> getViewMappings();
 
     @Override
     protected void servletInitialized() throws ServletException {

@@ -1,8 +1,6 @@
 package org.vaadin.volga;
 
-import com.vaadin.navigator.View;
-
-public interface VolgaView extends View {
+public interface VolgaDetails {
 
     String getSeoTitle();
     String getSeoImage();

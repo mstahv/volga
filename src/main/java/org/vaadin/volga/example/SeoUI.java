@@ -3,12 +3,12 @@ package org.vaadin.volga.example;
 import com.github.wolfie.history.PushStateLink;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
+import com.vaadin.annotations.Widgetset;
+import com.vaadin.navigator.View;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.ComponentContainer;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
-import org.vaadin.volga.Volga;
 import org.vaadin.volga.VolgaUI;
 
 /**
@@ -22,6 +22,7 @@ import org.vaadin.volga.VolgaUI;
  */
 @Theme("valo")
 @Title("SEO test: basic title")
+@Widgetset("AppWidgetset")
 public class SeoUI extends VolgaUI {
 
     private MVerticalLayout layout = new MVerticalLayout();
@@ -40,15 +41,14 @@ public class SeoUI extends VolgaUI {
     class Menu extends MHorizontalLayout {
 
         public Menu() {
-            addView("Main view", "");
-            addView("Second view", "second");
+            addView(MainView.class, "");
+            addView(SecondView.class, "second");
         }
 
-        private void addView(String name, String path) {
-            PushStateLink link = new PushStateLink(name, path);
+        private void addView(Class<? extends View> view, String path) {
+            PushStateLink link = new PushStateLink(view.getSimpleName(), path);
             add(link);
-            Volga volga = Volga.getCurrent(VaadinServlet.getCurrent().getServletContext());
-            getNavigator().addView(path, volga.getViewByPath(path).get());
+            getNavigator().addView(path, view);
         }
     }
 }
