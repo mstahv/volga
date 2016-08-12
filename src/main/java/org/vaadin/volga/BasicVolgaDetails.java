@@ -1,12 +1,12 @@
 package org.vaadin.volga;
 
-public class VolgaDetailsImpl implements VolgaDetails {
+public class BasicVolgaDetails implements VolgaDetails {
 
     private final String seoTitle;
     private final String seoImage;
     private final String seoDescription;
 
-    public VolgaDetailsImpl(String seoTitle, String seoImage, String seoDescription) {
+    public BasicVolgaDetails(String seoTitle, String seoImage, String seoDescription) {
         this.seoTitle = seoTitle;
         this.seoImage = seoImage;
         this.seoDescription = seoDescription;

@@ -6,7 +6,7 @@ import org.vaadin.viritin.label.Header;
 import org.vaadin.viritin.label.RichText;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
-public class MainView extends MVerticalLayout implements View {
+class MainView extends MVerticalLayout implements View {
 
     public MainView() {
         add(
