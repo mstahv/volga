@@ -8,8 +8,7 @@ package org.vaadin.volga;
 import com.vaadin.server.BootstrapFragmentResponse;
 import com.vaadin.server.BootstrapListener;
 import com.vaadin.server.BootstrapPageResponse;
-import com.vaadin.ui.UI;
-import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 import org.jsoup.nodes.Element;
 
@@ -25,15 +24,12 @@ public class SeoBootstrapListener implements BootstrapListener {
 
     @Override
     public void modifyBootstrapPage(BootstrapPageResponse response) {
-        Optional<VolgaDetails> currentView = getCurrentView(response);
-        if(currentView.isPresent()) {
-            addHeaders(response, currentView.get());
-        }
+        VolgaDetails currentView = getCurrentView(response);
+        addHeaders(response, currentView);
     }
 
     private void addHeaders(BootstrapPageResponse response, VolgaDetails view) {
-        Class<? extends UI> uiClass = response.getUiClass();
-        
+
         // For Twitter
         meta(response, "twitter:card", "summary");
         meta(response, "twitter:site", "http://v4.tahvonen.fi");
@@ -49,10 +45,10 @@ public class SeoBootstrapListener implements BootstrapListener {
         meta(response, "og:image", view.getSeoImage());
     }
 
-    private Optional<VolgaDetails> getCurrentView(BootstrapPageResponse response) {
+    private VolgaDetails getCurrentView(BootstrapPageResponse response) {
         HttpServletRequest request = (HttpServletRequest) response.getRequest();
         final Volga current = Volga.getCurrent(request.getServletContext());
-        return current.getVolgaView(response);
+        return current.getVolgaDetails(response);
     }
 
     private void meta(BootstrapPageResponse response, String name, String content) {

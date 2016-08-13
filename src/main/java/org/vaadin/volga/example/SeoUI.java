@@ -38,9 +38,9 @@ public class SeoUI extends VolgaUI {
         return layout;
     }
 
-    class Menu extends MHorizontalLayout {
+    private class Menu extends MHorizontalLayout {
 
-        public Menu() {
+        Menu() {
             addView(MainView.class, "");
             addView(SecondView.class, "second");
         }

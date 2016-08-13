@@ -6,9 +6,9 @@ import com.vaadin.ui.Label;
 import org.vaadin.viritin.label.RichText;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
-public class SecondView extends MVerticalLayout implements View {
-    
-    Label pathParam = new Label();
+class SecondView extends MVerticalLayout implements View {
+
+    private Label pathParam = new Label();
 
     public SecondView() {
         add(new RichText().withMarkDownResource("/secondview.md"), pathParam);
@@ -18,5 +18,4 @@ public class SecondView extends MVerticalLayout implements View {
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         pathParam.setValue(event.getParameters());
     }
-
 }
