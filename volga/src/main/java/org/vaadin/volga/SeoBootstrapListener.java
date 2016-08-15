@@ -27,11 +27,9 @@ public class SeoBootstrapListener implements BootstrapListener {
 
     @Override
     public void modifyBootstrapPage(BootstrapPageResponse response) {
-        Optional<VolgaDetails> currentView = getCurrentView(response);
+        VolgaDetails currentView = getCurrentView(response);
         String path = computePath(response);
-        if(currentView.isPresent()) {
-            addHeaders(path, response, currentView.get());
-        }
+        addHeaders(path, response, currentView);
     }
 
     private void addHeaders(String path, BootstrapPageResponse response, VolgaDetails details) {
@@ -54,10 +52,10 @@ public class SeoBootstrapListener implements BootstrapListener {
         meta(response, "og:image", details.getSeoImage());
     }
 
-    private Optional<VolgaDetails> getCurrentView(BootstrapPageResponse response) {
+    private VolgaDetails getCurrentView(BootstrapPageResponse response) {
         HttpServletRequest request = (HttpServletRequest) response.getRequest();
         final Volga current = Volga.getCurrent(request.getServletContext());
-        return current.getVolgaView(response);
+        return current.getVolgaDetails(response);
     }
 
     private void meta(BootstrapPageResponse response, String name, String content) {

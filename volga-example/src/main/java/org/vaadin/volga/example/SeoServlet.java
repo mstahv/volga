@@ -3,7 +3,7 @@ package org.vaadin.volga.example;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import org.vaadin.volga.Volga;
 import org.vaadin.volga.VolgaDetails;
-import org.vaadin.volga.VolgaDetailsImpl;
+import org.vaadin.volga.BasicVolgaDetails;
 import org.vaadin.volga.VolgaServlet;
 
 import javax.servlet.ServletContext;
@@ -21,7 +21,7 @@ public class SeoServlet extends VolgaServlet {
         super.servletInitialized();
         ServletContext context = getServletContext();
         String path =  context.getContextPath();
-        Volga.getCurrent(context).setDefaultDetails(new VolgaDetailsImpl(path,
+        Volga.getCurrent(context).setDefaultDetails(new BasicVolgaDetails(path,
                 "Default SEO title",
                 "http://v4.tahvonen.fi/boat.png",
                 "This is the default SEO description that is used."));
@@ -33,7 +33,7 @@ public class SeoServlet extends VolgaServlet {
         ServletContext context = getServletContext();
         String path =  context.getContextPath();
         String subpath = "second";
-        mappings.put(new VolgaDetailsImpl(path + '/' + subpath,
+        mappings.put(new BasicVolgaDetails(path + '/' + subpath,
                 "Seo title for second view",
                 "http://v4.tahvonen.fi/boat.png",
                 "This is the description for view with id second."), subpath);
