@@ -13,14 +13,13 @@ import com.vaadin.ui.UI;
 import org.jsoup.nodes.Element;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 
 /**
  *
  * @author mattitahvonenitmill
  */
 public class SeoBootstrapListener implements BootstrapListener {
-    
+
     @Override
     public void modifyBootstrapFragment(BootstrapFragmentResponse response) {
     }
@@ -34,14 +33,17 @@ public class SeoBootstrapListener implements BootstrapListener {
 
     private void addHeaders(String path, BootstrapPageResponse response, VolgaDetails details) {
         Class<? extends UI> uiClass = response.getUiClass();
-        
+
+        // Generic
+        meta(response, "description", details.getSeoDescription());
+
         // For Twitter
         meta(response, "twitter:card", "summary");
         meta(response, "twitter:site", path + details.getSeoUrl());
         meta(response, "twitter:title", details.getSeoTitle());
         meta(response, "twitter:description", details.getSeoDescription());
         meta(response, "twitter:image", details.getSeoImage());
-        
+
         // For Facebook
         Element html = response.getDocument().getElementsByTag("html").get(0);
         html.attr("prefix", "og: http://ogp.me/ns# article: http://ogp.me/ns/article#");
