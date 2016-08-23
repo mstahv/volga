@@ -1,44 +1,15 @@
-mavenproject1
-==============
+# Volga
 
-Template for a simple Vaadin application that only requires a Servlet 3.0 container to run.
+Volga is a Vaadin add-on that helps you to add meta data to your Vaadin applications, which will help social media services and search engines better interpret your application.
 
+*Download release versions via [vaadin.com/directory](https://vaadin.com/directory)*.
 
-Workflow
-========
+The add-on is in its early stages so expect some changes to its API in the future. All input is highly appreciated, preferably via github issues. 
 
-To compile the entire project, run "mvn install".
+Currently it supports following meta tags:
 
-To run the application, run "mvn jetty:run" and open http://localhost:8080/ .
+ * basic "description" meta tag
+ * twitter cards
+ * open graph meta information
 
-Debugging client side code
-  - run "mvn vaadin:run-codeserver" on a separate console while the application is running
-  - activate Super Dev Mode in the debug window of the application
-
-To produce a deployable production mode WAR:
-- change productionMode to true in the servlet class configuration (nested in the UI class)
-- run "mvn clean package"
-- test the war file with "mvn jetty:run-war"
-
-Developing a theme using the runtime compiler
--------------------------
-
-When developing the theme, Vaadin can be configured to compile the SASS based
-theme at runtime in the server. This way you can just modify the scss files in
-your IDE and reload the browser to see changes.
-
-To use the runtime compilation, open pom.xml and comment out the compile-theme 
-goal from vaadin-maven-plugin configuration. To remove a possibly existing 
-pre-compiled theme, run "mvn clean package" once.
-
-When using the runtime compiler, running the application in the "run" mode 
-(rather than in "debug" mode) can speed up consecutive theme compilations
-significantly.
-
-It is highly recommended to disable runtime compilation for production WAR files.
-
-Using Vaadin pre-releases
--------------------------
-
-If Vaadin pre-releases are not enabled by default, use the Maven parameter
-"-P vaadin-prerelease" or change the activation default value of the profile in pom.xml .
+It is highly suggested that you use it with [the History add-on](https://vaadin.com/directory#!addon/history), which makes it possible to serve different meta tags for different views of your applications. See [the demo project](https://github.com/mstahv/volga/tree/master/volga-example) for a usage example.
