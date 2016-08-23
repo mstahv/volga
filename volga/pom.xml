@@ -5,6 +5,14 @@
     <artifactId>volga</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
+    <developers>
+        <developer>
+            <name>Nicolas Fränkel</name>
+        </developer>
+        <developer>
+            <name>Matti Tahvonen</name>
+        </developer>
+    </developers>
     <organization>
         <name>Vaadin Community</name>
     </organization>
