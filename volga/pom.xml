@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.vaadin</groupId>
     <artifactId>volga</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <developers>
         <developer>
@@ -32,7 +32,7 @@
         <url>git://github.com/mstahv/volga.git</url>
         <connection>scm:git:git://github.com/mstahv/volga.git</connection>
         <developerConnection>scm:git:ssh://git@github.com:/mstahv/volga.git</developerConnection>
-      <tag>volga-0.1</tag>
+      <tag>HEAD</tag>
   </scm>
     <issueManagement>
         <system>GitHub</system>
